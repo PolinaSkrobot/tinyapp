@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/PolinaSkrobot/tinyapp/issues"
   },
-  "homepage": "https://github.com/PolinaSkrobot/tinyapp#readme"
+  "homepage": "https://github.com/PolinaSkrobot/tinyapp#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
