@@ -32,6 +32,16 @@ app.post('/urls/:shortURL/delete', (req,res)=>{
   delete urlDatabase[shortURL];
   res.redirect('/urls');
 });
+app.post('/urls/:shortURL', (req,res)=>{// press edit button on the single page
+  const editedURL = req.body.url;
+  const shortURL = req.params.shortURL;
+  urlDatabase[shortURL] = editedURL;
+  res.redirect('/urls');
+});
+app.post('/urls/:shortURL/edit',(req,res) => {//press EDIT button on the url page
+  const shortURL = '/urls/' + req.params.shortURL;
+  res.redirect(shortURL);
+});
 app.get("/", (req, res) => { //home page
   res.send("Hello!");
 });
