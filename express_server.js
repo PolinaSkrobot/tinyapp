@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
 
-const urlDatabase = {
+let urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
@@ -22,11 +22,15 @@ function generateRandomString() {
   }
   return string;
 }
-console.log(generateRandomString());
-
+//console.log(generateRandomString());
 
 app.post('/urls', (req, res)=> {
-  console.log(req.body);
+
+  let newShort = generateRandomString();
+  urlDatabase[newShort] = req.body.longURL;//add new pair key-value to database
+
+  console.log(urlDatabase);
+ 
   res.send('Ok');
 });
 app.get("/", (req, res) => {
