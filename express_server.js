@@ -5,6 +5,7 @@ const app = express();
 const PORT = 8080; // default port 8080
 
 app.use(bodyParser.urlencoded({extended: true}));
+
 app.set("view engine", "ejs");
 
 let urlDatabase = {
@@ -21,7 +22,12 @@ function generateRandomString() { //random short URL
   }
   return string;
 }
-
+app.post('/login',(req,res) => {
+  console.log(req.body);
+  res.cookie('username', req.body.username);
+  res.redirect('/urls');
+  //res.send('Error yet');
+});
 app.post('/urls', (req, res)=> { //addition new url to make short version
   let newShort = generateRandomString();
   urlDatabase[newShort] = req.body.longURL;//add new pair key-value to database
