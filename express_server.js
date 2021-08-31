@@ -23,17 +23,15 @@ function generateRandomString() { //random short URL
 }
 
 app.post('/urls', (req, res)=> { //addition new url to make short version
-
   let newShort = generateRandomString();
   urlDatabase[newShort] = req.body.longURL;//add new pair key-value to database
   res.redirect(`/urls/${newShort}`);
 });
 app.post('/urls/:shortURL/delete', (req,res)=>{
-  console.log('hhhh');
   const shortURL = req.params.shortURL;
   delete urlDatabase[shortURL];
   res.redirect('/urls');
-})
+});
 app.get("/", (req, res) => { //home page
   res.send("Hello!");
 });
@@ -51,10 +49,11 @@ app.get("/urls/new", (req, res) => {
   res.render("urls_new");
 });
 app.get("/urls/:shortURL", (req, res) => {
-  const templateVars = { shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL] };
   const shortURL = req.params.shortURL;
-  //console.log();
-  if (!urlDatabase[shortURL]) {
+  const longURL = urlDatabase[shortURL];
+  const templateVars = { shortURL, longURL};
+  
+  if (!urlDatabase[shortURL]) { //edge case with not existing shortURL
     res.redirect('/urls');
     return;
   }
