@@ -28,6 +28,12 @@ app.post('/urls', (req, res)=> { //addition new url to make short version
   urlDatabase[newShort] = req.body.longURL;//add new pair key-value to database
   res.redirect(`/urls/${newShort}`);
 });
+app.post('/urls/:shortURL/delete', (req,res)=>{
+  console.log('hhhh');
+  const shortURL = req.params.shortURL;
+  delete urlDatabase[shortURL];
+  res.redirect('/urls');
+})
 app.get("/", (req, res) => { //home page
   res.send("Hello!");
 });
