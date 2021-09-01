@@ -11,20 +11,18 @@
         <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
       </div>
     </div>
-    <div>
-
-      <% if(username){ %>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+      <% if(user.id){ %>
         <form method="POST" action="/logout">
-          Logged in as: <%= username %>!
-            <button style="border:black; border-radius: 5px" type="submit">Logout</button>
+          Logged In As: <%= user.email %> !
+            <button style="border:#000000; border-radius: 5px" type="submit">Logout</button>
         </form>
         <% } else{ %>
-          <form method="POST" action="/login">
-            <input name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
-            <button style="border:black; border-radius: 5px" type="submit">Login</button>
-          </form>
+       <a class="nav-item nav-link"  href='/login'>Login</a>
+       <a class="nav-item nav-link"  href='/register'>Register</a>
           <% } %>
-
+      </div>
     </div>
   </nav>
 </header>
