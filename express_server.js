@@ -96,6 +96,10 @@ app.get("/u/:shortURL", (req, res) => { //redirection from short URL to original
   res.redirect(longURL);
 });
 
+app.get('/register', (req,res)=>{
+  res.render('registration');
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
