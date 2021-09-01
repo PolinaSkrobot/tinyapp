@@ -11,11 +11,13 @@
       </div>
     </div>
     <div>
-      <form method="POST" action="/login">        
-        <input name="username" value="Username"
-               style="color:#BBB;"/>
+      
+      <form method="POST" action="/login">    
+        <%= username %>    
+        <input name="username" value="Username"/>
         <button style="border:black; border-radius: 5px" type="submit">Login</button>
       </form>
+      
     </div>
   </nav>
 </header>
