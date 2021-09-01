@@ -25,28 +25,36 @@ function generateRandomString() { //random short URL
   }
   return string;
 }
-app.post('/login',(req,res) => {
-  console.log(req.body);
+
+app.post('/login',(req,res) => { // Login functionality
   res.cookie("username", req.body.username);
   res.redirect('/urls');
-  
 });
+
+app.post('/logout',(req,res) => {// Logout
+  res.clearCookie('username');
+  res.redirect('/urls');
+});
+
 app.post('/urls', (req, res)=> { //addition new url to make short version
   let newShort = generateRandomString();
   urlDatabase[newShort] = req.body.longURL;//add new pair key-value to database
   res.redirect(`/urls/${newShort}`);
 });
+
 app.post('/urls/:shortURL/delete', (req,res)=>{
   const shortURL = req.params.shortURL;
   delete urlDatabase[shortURL];
   res.redirect('/urls');
 });
+
 app.post('/urls/:shortURL', (req,res)=>{// press edit button on the single page
   const editedURL = req.body.url;
   const shortURL = req.params.shortURL;
   urlDatabase[shortURL] = editedURL;
   res.redirect('/urls');
 });
+
 app.post('/urls/:shortURL/edit',(req,res) => {//press EDIT button on the url page
   const shortURL = '/urls/' + req.params.shortURL;
   res.redirect(shortURL);
@@ -60,18 +68,12 @@ app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
 
-app.get("/hello", (req, res) => {
-  res.send("<html><body>Hello <b>World</b></body></html>\n");
-});
-
 app.get("/urls", (req, res) => { //urls page
-  //const username = req.cookies['username'];
-  
   const templateVars = { urls: urlDatabase, username: req.cookies["username"] };
   res.render("urls_index", templateVars);
 });
 
-app.get("/urls/new", (req, res) => {
+app.get("/urls/new", (req, res) => { // new URL
   const templateVars = { username: req.cookies["username"] };
   res.render("urls_new", templateVars);
 });
