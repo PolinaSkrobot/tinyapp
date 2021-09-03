@@ -110,7 +110,6 @@ app.post('/urls/:shortURL', (req,res)=>{// press edit button on the single page
     longURL: editedURL,
     userID: user_id
   };
-  console.log("data", urlDatabase);
   res.redirect('/urls');
 });
 
