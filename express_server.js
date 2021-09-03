@@ -196,21 +196,21 @@ app.get("/urls", (req, res) => { //urls page
 });
 
 app.get("/urls/new", (req, res) => { // new URL
-  req.session.user_id;
-  if (!req.session.user_id) {
-    res.redirect('/login');
+  const user_id = req.session.user_id;
+  if (!user_id) {
+    return res.redirect('/login');
   }
   const templateVars = { user: users[req.session.user_id]  };
   res.render("urls_new", templateVars);
 });
 
 app.get("/urls/:shortURL", (req, res) => {
-  req.session.user_id;
-  if (!req.session.user_id) {
+  const user_id = req.session.user_id;
+  if (!user_id) {
     return res.status(401).send("Please login first");
   }
   const shortURL = req.params.shortURL;
-  if (urlDatabase[shortURL].userID && urlDatabase[shortURL].userID !== req.session.user_id) {
+  if (urlDatabase[shortURL].userID && urlDatabase[shortURL].userID !== user_id) {
     return res.status(403).send('Unauthorized action');
   }
   const longURL = urlDatabase[shortURL].longURL;
